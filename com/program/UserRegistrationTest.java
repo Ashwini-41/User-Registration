@@ -54,8 +54,13 @@ class UserRegistrationTest {
 	@Test
 	void PasswordTest2() {
 		UserRegistration ur = new UserRegistration();
-        assertTrue(ur.passwordValidation("Ashwinigar"));
+        assertFalse(ur.passwordValidation("Ashwinigar"));
 	} 
 	
+	@Test
+	void PasswordTest3() {
+		UserRegistration ur = new UserRegistration();
+        assertTrue(ur.passwordValidation("Password123"));
+	}
 	
 }
