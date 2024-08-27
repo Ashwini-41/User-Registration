@@ -18,5 +18,10 @@ public class UserRegistration {
 		return Pattern.matches(regex, email);
 	}
 	
+	public boolean validMobileNo(String mobileNo) {
+		String regex = "^[0-9]{2} [0-9]{10}$";
+		return Pattern.matches(regex, mobileNo);
+	}
+	
 	
 }
