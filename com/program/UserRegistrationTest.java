@@ -39,6 +39,18 @@ class UserRegistrationTest {
 	}
 	
 	@Test
+	void EmailTest3() {
+		UserRegistration ur = new UserRegistration();
+        assertTrue(ur.validateEmail("abc.100@yahoo.com"));
+	}
+	
+	@Test
+	void EmailTest4() {
+		UserRegistration ur = new UserRegistration();
+        assertFalse(ur.validateEmail("abc()*@gmail.com"));
+	}
+	
+	@Test
 	void MobileNoTest() {
 		UserRegistration ur = new UserRegistration();
         assertTrue(ur.validMobileNo("91 8765422116"));
