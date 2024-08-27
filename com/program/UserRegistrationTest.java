@@ -19,5 +19,12 @@ class UserRegistrationTest {
 		
 	}
 	
+	@Test
+	void LastNameTest1() {
+		UserRegistration ur = new UserRegistration();
+		assertTrue(ur.validateLastName("Garad"));
+
+	}
+	
 
 }
