@@ -45,6 +45,12 @@ class UserRegistrationTest {
 		
 	}
 	
+	@Test
+	void PasswordTest1() {
+		UserRegistration ur = new UserRegistration();
+        assertTrue(ur.passwordValidation("abcdefghi"));
+	}
+	
 	
 
 }
