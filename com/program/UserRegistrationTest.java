@@ -7,13 +7,13 @@ import org.junit.jupiter.api.Test;
 class UserRegistrationTest {
 
 	@Test
-	void FirstNametest() {
+	void FirstNametest1() {
 		UserRegistration ur = new UserRegistration();
 		assertTrue(ur.validateFirstName("Ashwi"));
 		
 	}
 	@Test
-	void FirstNametest1() {
+	void FirstNametest2() {
 		UserRegistration ur = new UserRegistration();
 		assertFalse(ur.validateFirstName("ashwini"));
 		
@@ -48,9 +48,14 @@ class UserRegistrationTest {
 	@Test
 	void PasswordTest1() {
 		UserRegistration ur = new UserRegistration();
-        assertTrue(ur.passwordValidation("abcdefghi"));
+        assertFalse(ur.passwordValidation("abcdefg"));
 	}
 	
+	@Test
+	void PasswordTest2() {
+		UserRegistration ur = new UserRegistration();
+        assertTrue(ur.passwordValidation("Ashwinigar"));
+	} 
 	
-
+	
 }
