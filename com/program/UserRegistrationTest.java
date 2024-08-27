@@ -9,13 +9,13 @@ class UserRegistrationTest {
 	@Test
 	void FirstNametest() {
 		UserRegistration ur = new UserRegistration();
-		assertTrue(ur.validateFirstName("Ash"));
+		assertTrue(ur.validateFirstName("Ashwi"));
 		
 	}
 	@Test
 	void FirstNametest1() {
 		UserRegistration ur = new UserRegistration();
-		assertFalse(ur.validateFirstName("ashw"));
+		assertFalse(ur.validateFirstName("ashwini"));
 		
 	}
 	
