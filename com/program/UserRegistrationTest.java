@@ -26,5 +26,18 @@ class UserRegistrationTest {
 
 	}
 	
+	@Test
+	void EmailTest1() {
+		UserRegistration ur = new UserRegistration();
+        assertTrue(ur.validateEmail("ashwi12@gmail.com"));
+	}
+	
+	@Test
+	void EmailTest2() {
+		UserRegistration ur = new UserRegistration();
+        assertFalse(ur.validateEmail("Abc@gmail.c"));
+	}
+	
+	
 
 }
