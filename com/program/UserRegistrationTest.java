@@ -11,21 +11,29 @@ class UserRegistrationTest {
 	@Test
 	void FirstNametest1() {
 		UserRegistration ur = new UserRegistration();
-		assertTrue(ur.validateFirstName("Ashwi"));
+		assertDoesNotThrow(() -> ur.validateFirstName("Ashwi"));
 		
 	}
 	@Test
 	void FirstNametest2() {
 		UserRegistration ur = new UserRegistration();
-		assertFalse(ur.validateFirstName("ashwini"));
-		
+		Exception exception = assertThrows(InvalidUserDetailException.class, () -> ur.validateFirstName("ashwini"));
+	    assertEquals("Invalid First Name", exception.getMessage());
 	}
 	
 	@Test
 	void LastNameTest1() {
 		UserRegistration ur = new UserRegistration();
-		assertTrue(ur.validateLastName("Garad"));
+		
+		assertDoesNotThrow(() -> ur.validateLastName("Garad"));
 
+	}
+	
+	@Test
+	void LastNameTest2() {
+		UserRegistration ur = new UserRegistration();
+		Exception exception = assertThrows(InvalidUserDetailException.class, () -> ur.validateLastName("gar"));
+		assertEquals("Invalid Last Name",exception.getMessage());
 	}
 	
 	 // Parameterized Email Tests
@@ -41,38 +49,47 @@ class UserRegistrationTest {
     })
     void testEmailValidation(String email, boolean expectedResult) {
     	UserRegistration ur = new UserRegistration();
-    	assertEquals(expectedResult, ur.validateEmail(email));
+    	if(expectedResult) {
+    		assertDoesNotThrow(() -> ur.validateEmail(email) );
+    	}else {
+    		assertThrows(InvalidUserDetailException.class , () -> ur.validateEmail(email));
+    	}
+    
     }
 	
 	@Test
 	void MobileNoTest() {
 		UserRegistration ur = new UserRegistration();
-        assertTrue(ur.validMobileNo("91 8765422116"));
+        assertDoesNotThrow(() -> ur.validMobileNo("91 8765422116"));
 		
 	}
 	
 	@Test
 	void PasswordTest1() {
 		UserRegistration ur = new UserRegistration();
-        assertFalse(ur.passwordValidation("abcdefg"));
+		Exception exp = assertThrows(InvalidUserDetailException.class, () -> ur.passwordValidation("abcdft") );
+		assertEquals("Invalid Password" , exp.getMessage());
 	}
 	
 	@Test
 	void PasswordTest2() {
 		UserRegistration ur = new UserRegistration();
-        assertFalse(ur.passwordValidation("Ashwinigar"));
+		Exception exp = assertThrows(InvalidUserDetailException.class, () -> ur.passwordValidation("Ashwinigar") );
+		assertEquals("Invalid Password" , exp.getMessage());
+ 
 	} 
 	
 	@Test
 	void PasswordTest3() {
 		UserRegistration ur = new UserRegistration();
-        assertFalse(ur.passwordValidation("Password123"));
+		Exception exp = assertThrows(InvalidUserDetailException.class , () -> ur.passwordValidation("Password123") ); 
+		assertEquals("Invalid Password" , exp.getMessage());
 	}
 	
 	@Test
 	void PasswordTest4() {
 		UserRegistration ur = new UserRegistration();
-        assertTrue(ur.passwordValidation("Password@123"));
+        assertDoesNotThrow(() -> ur.passwordValidation("Password@123"));
 	}
 	
 }
