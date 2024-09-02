@@ -1,59 +1,43 @@
 package com.program;
-import java.util.regex.Pattern;
+import java.util.function.Predicate;
+//import java.util.regex.Pattern;
 
 public class UserRegistration {
 	
-	//First name
-	public boolean validateFirstName(String firstName) throws InvalidUserDetailException{
-        String regex = "^[A-Z][a-zA-Z]{2,}$";
-        
-		if( !Pattern.matches(regex, firstName)) {
-			throw new InvalidUserDetailException("Invalid First Name");
-			
-		}
-		return true;
+	// Lambda expressions for validation
+    private static final Predicate<String> firstNameValidator = name -> name.matches("^[A-Z][a-zA-Z]{2,}$");
+    private static final Predicate<String> lastNameValidator = name -> name.matches("^[A-Z][a-zA-Z]{2,}$");
+    private static final Predicate<String> emailValidator = email -> email.matches("^[a-zA-Z0-9]+[\\._]?[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}(\\.[a-zA-Z]{2,3})?$");
+    private static final Predicate<String> mobileValidator = mobile -> mobile.matches("^[0-9]{2} [0-9]{10}$");
+    private static final Predicate<String> passwordValidator = password -> password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,}$");
+
+    // Validation methods using lambdas
+    public void validateFirstName(String firstName) throws InvalidUserDetailException {
+        validate(firstName, firstNameValidator, "Invalid First Name");
     }
-	
-	//lastname
-	public boolean validateLastName(String lastName)throws InvalidUserDetailException {
-		String regex = "^[A-Z][a-zA-Z]{2,}$";
-		
-		if( !Pattern.matches(regex, lastName)) {
-			throw new InvalidUserDetailException("Invalid Last Name");
-		}
-		return true;
-	}
-	//email
-	public boolean validateEmail(String email) throws InvalidUserDetailException {
-		String regex = "^[a-zA-Z0-9]+[\\._]?[a-zA-Z0-9]+@[a-zA-Z0-9]+\\.[a-zA-Z]{2,3}(\\.[a-zA-Z]{2,3})?$";
-		
-		if ( !Pattern.matches(regex, email)){
-			throw new InvalidUserDetailException("Invalid Email Address");
-		}
-		return true;
-	}
-	
-	//mobile number
-	public boolean validMobileNo(String mobileNo) throws InvalidUserDetailException{
-		String regex = "^[0-9]{2} [0-9]{10}$";
-		
-		if ( !Pattern.matches(regex, mobileNo)) {
-			throw new InvalidUserDetailException("Invalid Mobile Number");
-		}
-		return true;
-	}
-	
-	//password
-	public boolean passwordValidation(String password) throws InvalidUserDetailException {
-		
-        String regex = "^(?=.*[A-Z])(?=.*[0-9])(?=.*[@#$%^&-+=()])(?=\\S+$).{8,}$";
-        
-		if( !Pattern.matches(regex, password)) {
-			throw new InvalidUserDetailException("Invalid Password");
-		}
-		return true;
-	}
-	
+
+    public void validateLastName(String lastName) throws InvalidUserDetailException {
+        validate(lastName, lastNameValidator, "Invalid Last Name");
+    }
+
+    public void validateEmail(String email) throws InvalidUserDetailException {
+        validate(email, emailValidator, "Invalid Email");
+    }
+
+    public void validMobileNo(String mobile) throws InvalidUserDetailException {
+        validate(mobile, mobileValidator, "Invalid Mobile Number");
+    }
+
+    public void passwordValidation(String password) throws InvalidUserDetailException {
+        validate(password, passwordValidator, "Invalid Password");
+    }
+
+    // Generic validation method
+    private void validate(String input, Predicate<String> validator, String errorMessage) throws InvalidUserDetailException {
+        if (!validator.test(input)) {
+            throw new InvalidUserDetailException(errorMessage);
+        }
+    }
 	
 	
 }
